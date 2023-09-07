@@ -9,6 +9,6 @@ spring:
     config:
       server:
         git:
-          default-label: feature/Create-config-service
+          default-label: main
           uri: https://github.com/MartinJavi01/Spring-boot-training-exercise
           search-paths: config-data
