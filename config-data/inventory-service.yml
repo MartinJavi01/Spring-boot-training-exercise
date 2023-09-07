@@ -1,18 +1,16 @@
+server:
+  port: ${PORT:${SERVER_PORT:0}}
+  
 spring:
-  application:
-    name: order-service
   datasource:
-    url: jdbc:mysql://localhost:3306/order_db
-    username: order
-    password: order_123
+    url: jdbc:mysql://localhost:3306/inventory_db
+    username: inventory
+    password: inventory_123
   jpa:
     hibernate:
       ddl-auto: update
     generate-ddl: true
-
-server:
-  port: ${PORT:${SERVER_PORT:0}}
-
+    
 eureka:
   client:
     fetch-registry: true
@@ -23,7 +21,7 @@ eureka:
 
 springdoc:
   api-docs:
-    path: /orders/api-docs
+    path: /inventory/api-docs
   swagger-ui:
     operationsSorter: method
-    path: /orders/swagger-ui.html
+    path: /inventory/swagger-ui.html
