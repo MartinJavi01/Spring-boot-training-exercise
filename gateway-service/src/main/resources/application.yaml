@@ -1,0 +1,46 @@
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: order-service
+          uri: lb://order-service
+          predicates:
+            - Path=/orders/**
+        - id: product-service
+          uri: lb://product-service
+          predicates:
+            - Path=/products/**
+        - id: inventory-service
+          uri: lb://inventory-service
+          predicates:
+            - Path=/inventory/**
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/user_db
+    username: user
+    password: user_123
+  jpa:
+    hibernate:
+      ddl-auto: update
+    generate-ddl: true
+
+  main:
+    allow-bean-definition-overriding: true
+
+server:
+  port: 8080
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      default-zone: http://localhost:8761/eureka
+  instance:
+    hostname: localhost
+    instanceId: ${spring.application.name}:${server.port}

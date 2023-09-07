@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: order-service
+  datasource:
+    url: jdbc:mysql://localhost:3306/order_db
+    username: order
+    password: order_123
+  jpa:
+    hibernate:
+      ddl-auto: update
+    generate-ddl: true
+
+server:
+  port: ${PORT:${SERVER_PORT:0}}
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+  instance:
+    hostname: localhost
+    instanceId: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+
+springdoc:
+  api-docs:
+    path: /orders/api-docs
+  swagger-ui:
+    operationsSorter: method
+    path: /orders/swagger-ui.html
