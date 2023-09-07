@@ -1,0 +1,14 @@
+server:
+  port: 8081
+
+application:
+  name: config-service
+
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          default-label: feature/Create-config-service
+          uri: https://github.com/MartinJavi01/Spring-boot-training-exercise
+          search-paths: config-data
