@@ -59,6 +59,16 @@ public class OrderController {
         }
     }
 
+    @DeleteMapping("process/{orderNumber}")
+    public ResponseEntity<Object> processOrder(@PathVariable String orderNumber, @RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
+        if(orderService.validateToken(token)) {
+            orderService.processOrder(orderNumber, token);
+            return new ResponseEntity<>("Order " + orderNumber + " has been processed.", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Token not valid or user is not admin", HttpStatus.UNAUTHORIZED);
+        }
+    }
+
     @DeleteMapping("/{orderNumber}/remove/{skuCode}")
     public ResponseEntity<Object> removeProductFromOrder(@PathVariable String orderNumber, @PathVariable String skuCode,
                                                          @RequestHeader(HttpHeaders.AUTHORIZATION) String token) {

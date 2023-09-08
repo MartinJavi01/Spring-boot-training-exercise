@@ -136,6 +136,17 @@ public class OrderService {
         return mapearDTO(order);
     }
 
+    public void processOrder(String orderNumber, String token) {
+        Order order = orderRepository.findByOrderNumber(orderNumber).orElseThrow();
+
+        System.out.println("A total of " + order.getPrice() + "has been paid.");
+
+        for(OrderLineItem product: order.getOrderLineItems()) {
+            inventoryProxy.editInventoryStock(product.getSkuCode(), String.valueOf(-product.getQuantity()), token);
+        }
+
+        orderRepository.delete(order);
+    }
 
     public void deleteOrder(long id) {
         Order order = orderRepository.findById(id).orElseThrow();
